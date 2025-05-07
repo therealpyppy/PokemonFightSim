@@ -9,7 +9,7 @@ with open("./Info/Pokemon.csv", 'r') as pokeFile:
 			if len(lineContent.split(",")) < 13:
 				errs.append("Unkown data found")
 
-		if errs.__len__ != 0:
+		if len(errs) != 0:
 			print(f"❌ {lineNum}:")
 			for msg in errs:
 				print(msg)
