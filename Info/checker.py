@@ -2,7 +2,7 @@ with open("./Info/Pokemon.csv", 'r') as pokeFile:
 	errs = []
 	passed = 0
 	total = 1026
-	for lineNum, lineContent in pokeFile.readlines():
+	for lineNum, lineContent in enumerate(pokeFile.readlines()):
 		if len(lineContent.split(",")) != 13:
 			if len(lineContent.split(",")) < 13:
 				errs.append("Missing data")
