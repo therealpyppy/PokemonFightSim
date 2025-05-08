@@ -9,7 +9,7 @@ public class Game {
         this.screenWidth = width;
         this.screenHeight = height;
 
-        JFrame f = new JFrame();
+        JFrame f = new JFrame("Pokemon Fight Sim");
         f.setLayout(null);
         f.setSize(width, height);
 
