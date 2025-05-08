@@ -26,13 +26,26 @@ public class Game {
         pSLabel.setBounds(screenWidth / 2 - 200, 20, 400, 20);
         pokemonSelection.add(pSLabel);
 
-        Object[][] data = {
-            {new ImageIcon("./Info/Art/001.png"), "Pikachu"},
-            {new ImageIcon("./Info/Art/002.png"), "Charizard"},
-            {new ImageIcon("./Info/Art/003.png"), "Bulbasaur"},
-            {new ImageIcon("./Info/Art/004.png"), "Squirtle"},
-            {new ImageIcon("./Info/Art/005.png"), "Eevee"}
-        };
+        List<Object[]> pokemonData = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("./Info/Pokemon.csv"))) {
+            String line;
+            br.readLine();
+
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(",");
+                String name = fields[1].replace("\"", "");
+                String id = fields[0].replace("\"", "");
+
+                String imagePath = "./Info/Art/" + String.format("%03d", Integer.parseInt(id)) + ".png";
+                ImageIcon icon = new ImageIcon(imagePath);
+
+                pokemonData.add(new Object[]{icon, name});
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Object[][] data = pokemonData.toArray(new Object[0][]);
 
         String[] columnNames = {"Image", "Name"};
 
