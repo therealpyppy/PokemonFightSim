@@ -1,9 +1,9 @@
-import java.util.List;
-import java.util.ArrayList;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.*;
+import javax.swing.*;
+import java.util.List;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class Game {
     private int screenWidth;
@@ -63,8 +63,7 @@ public class Game {
         };
 
         JTable table = new JTable(model);
-        int rowHeight = 80;
-        table.setRowHeight(rowHeight);
+        table.setRowHeight(80);
 
         table.getColumnModel().getColumn(0).setCellRenderer((table1, value, isSelected, hasFocus, row, column) -> {
             JLabel label = new JLabel();
