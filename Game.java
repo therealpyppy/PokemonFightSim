@@ -1,6 +1,9 @@
+import java.util.List;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.*;
 
 public class Game {
     private int screenWidth;
@@ -8,11 +11,11 @@ public class Game {
 
     public Game(int width, int height) {
         this.screenWidth = width;
-        this.screenHeight = height;
+        this.screenHeight = height+1;
 
         JFrame f = new JFrame("Pokemon Fight Sim");
         f.setLayout(null);
-        f.setSize(width, height);
+        f.setSize(width, height+40);
 
         Color blue = new Color(0, 20, 255);
 
@@ -95,6 +98,6 @@ public class Game {
     }
 
     public static void main(String[] args) {
-        new Game(700, 450);
+        new Game(700, 400);
     }
 }
