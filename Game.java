@@ -4,20 +4,23 @@ import javax.swing.*;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class Game {
     private int screenWidth;
     private int screenHeight;
 
+    private List<Object[]> originalPokemonData = new ArrayList<>();
+    private DefaultTableModel model;
+
     public Game(int width, int height) {
         this.screenWidth = width;
-        this.screenHeight = height+1;
+        this.screenHeight = height + 1;
 
         JFrame f = new JFrame("Pokemon Fight Sim");
         f.setLayout(null);
-        f.setSize(width, height+40);
-
-        Color blue = new Color(0, 20, 255);
+        f.setSize(width, height + 40);
 
         JPanel pokemonSelection = new JPanel();
         pokemonSelection.setLayout(null);
@@ -26,33 +29,34 @@ public class Game {
         pokemonSelection.setVisible(true);
 
         JLabel pSLabel = new JLabel("Please select your pokemon and your \"opponents\" pokemon:");
-        pSLabel.setBounds(screenWidth / 2 - 200, 20, 400, 20);
+        pSLabel.setBounds(screenWidth / 2 - 200, 10, 400, 20);
         pokemonSelection.add(pSLabel);
 
-        List<Object[]> pokemonData = new ArrayList<>();
+        JTextField searchBar = new JTextField();
+        searchBar.setBounds(20, 40, screenWidth - 280, 25);
+        pokemonSelection.add(searchBar);
+
         try (BufferedReader br = new BufferedReader(new FileReader("./Info/Pokemon.csv"))) {
-            String line;
-            br.readLine();
+            String line = br.readLine();
 
             while ((line = br.readLine()) != null) {
-                String[] fields = line.split(",");
-                String name = fields[1].replace("\"", "") + "    ||    " + fields[0].replace("\"", "");
-                String id = fields[0].replace("\"", "");
+                String[] parts = line.split(",");
+                String id = parts[0].replace("\"", "");
+                String name = parts[1].replace("\"", "");
+                String fullName = name + "    ||    " + id;
 
-                String imagePath = "./Info/Art/" + String.format("%03d", Integer.parseInt(id)) + ".png";
-                ImageIcon icon = new ImageIcon(imagePath);
+                String imgPath = "./Info/Art/" + String.format("%03d", Integer.parseInt(id)) + ".png";
+                ImageIcon icon = new ImageIcon(imgPath);
 
-                pokemonData.add(new Object[]{icon, name});
+                Object[] row = {icon, fullName};
+                originalPokemonData.add(row);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Object[][] data = pokemonData.toArray(new Object[0][]);
-
         String[] columnNames = {"Image", "Name || ID"};
-
-        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+        model = new DefaultTableModel(columnNames, 0) {
             public Class<?> getColumnClass(int column) {
                 return (column == 0) ? ImageIcon.class : String.class;
             }
@@ -63,37 +67,59 @@ public class Game {
         };
 
         JTable table = new JTable(model);
+		
         table.setRowHeight(80);
 
-        table.getColumnModel().getColumn(0).setCellRenderer((table1, value, isSelected, hasFocus, row, column) -> {
-            JLabel label = new JLabel();
-            if (value instanceof ImageIcon) {
-                ImageIcon icon = (ImageIcon) value;
-                Image img = icon.getImage();
-                int imgWidth = img.getWidth(null);
-                int imgHeight = img.getHeight(null);
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setBounds(0, 70, screenWidth - 250, screenHeight - 70);
+        pokemonSelection.add(scroll);
 
-                int cellWidth = table.getColumnModel().getColumn(column).getWidth();
-                int cellHeight = table.getRowHeight();
+        for (Object[] row : originalPokemonData) {
+            model.addRow(row);
+        }
 
-                float scale = Math.min((float) cellWidth / imgWidth, (float) cellHeight / imgHeight);
-                int newW = Math.round(imgWidth * scale);
-                int newH = Math.round(imgHeight * scale);
-
-                label.setIcon(new ImageIcon(img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH)));
+        searchBar.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                search(searchBar.getText());
             }
-            return label;
+
+            public void removeUpdate(DocumentEvent e) {
+                search(searchBar.getText());
+            }
+
+            public void changedUpdate(DocumentEvent e) {
+                search(searchBar.getText());
+            }
         });
-
-        JScrollPane tableScroll = new JScrollPane(table);
-        tableScroll.setBounds(0, 50, screenWidth - 250, screenHeight - 50);
-
-        pokemonSelection.add(tableScroll);
 
         f.add(pokemonSelection);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
-        f.getContentPane().setBackground(blue);
+    }
+
+    private void search(String text) {
+        text = text.toLowerCase();
+        model.setRowCount(0);
+
+        boolean found = false;
+        for (Object[] row : originalPokemonData) {
+            String full = (String) row[1];
+            String name = full.split("\\|\\|")[0].trim().toLowerCase();
+            if (name.contains(text)) {
+                model.addRow(row);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            for (Object[] row : originalPokemonData) {
+                String full = (String) row[1];
+                String id = full.split("\\|\\|")[1].trim().toLowerCase();
+                if (id.contains(text)) {
+                    model.addRow(row);
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
