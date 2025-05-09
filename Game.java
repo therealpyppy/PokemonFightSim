@@ -70,6 +70,28 @@ public class Game {
 		
         table.setRowHeight(80);
 
+		table.getColumnModel().getColumn(0).setCellRenderer((table1, value, isSelected, hasFocus, row, column) -> {
+			JLabel label = new JLabel();
+			if (value instanceof ImageIcon) {
+				ImageIcon icon = (ImageIcon) value;
+				Image img = icon.getImage();
+
+				int imgWidth = img.getWidth(null);
+				int imgHeight = img.getHeight(null);
+
+				int cellWidth = table1.getColumnModel().getColumn(column).getWidth();
+				int cellHeight = table1.getRowHeight();
+
+				float scale = Math.min((float) cellWidth / imgWidth, (float) cellHeight / imgHeight);
+
+				int newW = Math.round(imgWidth * scale);
+				int newH = Math.round(imgHeight * scale);
+
+				label.setIcon(new ImageIcon(img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH)));
+			}
+			return label;
+		});
+
         JScrollPane scroll = new JScrollPane(table);
         scroll.setBounds(0, 70, screenWidth - 250, screenHeight - 70);
         pokemonSelection.add(scroll);
