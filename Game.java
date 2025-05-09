@@ -88,6 +88,7 @@ public class Game {
 				int newH = Math.round(imgHeight * scale);
 
 				label.setIcon(new ImageIcon(img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH)));
+				label.setHorizontalAlignment(SwingConstants.CENTER);
 			}
 			return label;
 		});
