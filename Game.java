@@ -69,6 +69,8 @@ public class Game {
         JTable table = new JTable(model);
 		
         table.setRowHeight(80);
+		table.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setPreferredWidth(screenWidth - 350);
 
 		table.getColumnModel().getColumn(0).setCellRenderer((table1, value, isSelected, hasFocus, row, column) -> {
 			JLabel label = new JLabel();
