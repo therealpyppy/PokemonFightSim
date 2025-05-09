@@ -36,7 +36,7 @@ public class Game {
 
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",");
-                String name = fields[1].replace("\"", "");
+                String name = fields[1].replace("\"", "") + "    ||    " + fields[0].replace("\"", "");
                 String id = fields[0].replace("\"", "");
 
                 String imagePath = "./Info/Art/" + String.format("%03d", Integer.parseInt(id)) + ".png";
@@ -50,7 +50,7 @@ public class Game {
 
         Object[][] data = pokemonData.toArray(new Object[0][]);
 
-        String[] columnNames = {"Image", "Name"};
+        String[] columnNames = {"Image", "Name || ID"};
 
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
             public Class<?> getColumnClass(int column) {
