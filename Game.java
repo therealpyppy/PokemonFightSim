@@ -94,10 +94,10 @@ public class Game {
 		}
 		
 		JScrollPane scroll1 = new JScrollPane(table1);
-		scroll1.setBounds(15, 70, screenWidth / 2 - 30, screenHeight - 90);
+		scroll1.setBounds(15, 70, screenWidth / 2 - 30 - 16, screenHeight - 90);
 		
 		JScrollPane scroll2 = new JScrollPane(table2);
-		scroll2.setBounds(screenWidth / 2 + 15 + 16, 70, screenWidth - (screenWidth / 2 + 15) - 15, screenHeight - 90);
+		scroll2.setBounds(screenWidth / 2 + 15 + 16, 70, screenWidth - (screenWidth / 2 + 15) - 15 - 16, screenHeight - 90);
 		
 		scroll1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		scroll1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
