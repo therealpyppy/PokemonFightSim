@@ -95,8 +95,14 @@ public class Game {
 		scroll1.setBounds(15, 70, screenWidth / 2 - 30, screenHeight - 90);
 		
 		JScrollPane scroll2 = new JScrollPane(table2);
-		scroll2.setBounds(screenWidth / 2 + 15, 70, screenWidth - (screenWidth / 2 + 15) - 15, screenHeight - 90);
+		scroll2.setBounds(screenWidth / 2 + 15 + 16, 70, screenWidth - (screenWidth / 2 + 15) - 15, screenHeight - 90);
 		
+		scroll1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		scroll1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+		scroll2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		scroll2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
 		pokemonSelection.add(scroll1);
 		pokemonSelection.add(scroll2);
 		
