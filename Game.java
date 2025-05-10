@@ -33,7 +33,8 @@ public class Game {
 		pokemonSelection.add(pSLabel);
 		
 		JTextField searchBar = new JTextField();
-		searchBar.setBounds(20, 40, screenWidth - 280, 25);
+		searchBar.setPreferredSize(new Dimension(screenWidth - 280, 25));
+		searchBar.setBounds((screenWidth - searchBar.getPreferredSize().width) / 2, 40, searchBar.getPreferredSize().width, searchBar.getPreferredSize().height);
 		pokemonSelection.add(searchBar);
 		
 		try (BufferedReader br = new BufferedReader(new FileReader("./Info/Pokemon.csv"))) {
