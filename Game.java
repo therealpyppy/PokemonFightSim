@@ -46,7 +46,10 @@ public class Game {
 				String fullName = name + "    ||    " + id;
 				
 				String imgPath = "./Info/Art/" + String.format("%03d", Integer.parseInt(id)) + ".png";
-				ImageIcon icon = new ImageIcon(imgPath);
+				ImageIcon rawIcon = new ImageIcon(imgPath);
+				Image rawImage = rawIcon.getImage();
+				Image scaledImage = getScaledImage(rawImage, 80);
+				ImageIcon icon = new ImageIcon(scaledImage);
 				
 				Object[] row = {icon, fullName};
 				originalPokemonData.add(row);
@@ -121,7 +124,20 @@ public class Game {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
 	}
+
+	private Image getScaledImage(Image srcImg, int targetHeight) {
+		int width = srcImg.getWidth(null);
+		int height = srcImg.getHeight(null);
 	
+		if (width <= 0 || height <= 0) return srcImg;
+	
+		double scale = (double) targetHeight / height;
+		int newWidth = (int) (width * scale);
+	
+		return srcImg.getScaledInstance(newWidth, targetHeight, Image.SCALE_SMOOTH);
+	}
+	
+
 	private void search(String text) {
 		text = text.toLowerCase();
 		model.setRowCount(0);
