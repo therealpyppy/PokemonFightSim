@@ -56,51 +56,50 @@ public class Game {
         }
 
         String[] columnNames = {"Image", "Name || ID"};
-        model = new DefaultTableModel(columnNames, 0) {
-            public Class<?> getColumnClass(int column) {
-                return (column == 0) ? ImageIcon.class : String.class;
-            }
-
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        JTable table = new JTable(model);
 		
-        table.setRowHeight(80);
-		table.getColumnModel().getColumn(0).setPreferredWidth(100);
-		table.getColumnModel().getColumn(1).setPreferredWidth(screenWidth - 350);
-
-		table.getColumnModel().getColumn(0).setCellRenderer((table1, value, isSelected, hasFocus, row, column) -> {
-			JLabel label = new JLabel();
-			if (value instanceof ImageIcon) {
-				ImageIcon icon = (ImageIcon) value;
-				Image img = icon.getImage();
-
-				int imgWidth = img.getWidth(null);
-				int imgHeight = img.getHeight(null);
-
-				int cellWidth = table1.getColumnModel().getColumn(column).getWidth();
-				int cellHeight = table1.getRowHeight();
-
-				float scale = Math.min((float) cellWidth / imgWidth, (float) cellHeight / imgHeight);
-
-				int newW = Math.round(imgWidth * scale);
-				int newH = Math.round(imgHeight * scale);
-
-				label.setIcon(new ImageIcon(img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH)));
-				label.setHorizontalAlignment(SwingConstants.CENTER);
+		DefaultTableModel model1 = new DefaultTableModel(columnNames, 0) {
+			public Class<?> getColumnClass(int column) {
+				return (column == 0) ? ImageIcon.class : String.class;
 			}
-			return label;
-		});
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		JTable table1 = new JTable(model1);
+		table1.setRowHeight(80);
+		table1.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table1.getColumnModel().getColumn(1).setPreferredWidth(screenWidth - 350);
 
-        JScrollPane scroll = new JScrollPane(table);
-        scroll.setBounds(0, 70, screenWidth - 250, screenHeight - 70);
-        pokemonSelection.add(scroll);
+		DefaultTableModel model2 = new DefaultTableModel(columnNames, 0) {
+			public Class<?> getColumnClass(int column) {
+				return (column == 0) ? ImageIcon.class : String.class;
+			}
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		JTable table2 = new JTable(model2);
+		table2.setRowHeight(80);
+		table2.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table2.getColumnModel().getColumn(1).setPreferredWidth(screenWidth - 350);
+
+		for (Object[] row : originalPokemonData) {
+			model1.addRow(row);
+			model2.addRow(row);
+		}
+
+		JScrollPane scroll1 = new JScrollPane(table1);
+		scroll1.setBounds(15, 70, screenWidth / 2 - 30, screenHeight - 90);
+		
+		JScrollPane scroll2 = new JScrollPane(table2);
+		scroll2.setBounds(screenWidth / 2 + 15, 70, screenWidth - (screenWidth / 2 + 15) - 15, screenHeight - 90);
+		
+
+		pokemonSelection.add(scroll1);
+		pokemonSelection.add(scroll2);
 
         for (Object[] row : originalPokemonData) {
-            model.addRow(row);
+            model1.addRow(row);
         }
 
         searchBar.getDocument().addDocumentListener(new DocumentListener() {
