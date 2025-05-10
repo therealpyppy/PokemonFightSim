@@ -16,11 +16,9 @@ public class Game {
 	
 	public Game(int width, int height) {
 		this.screenWidth = width;
-		this.screenHeight = height + 1;
+		this.screenHeight = height;
 		
 		JFrame f = new JFrame("Pokemon Fight Sim");
-		f.setLayout(null);
-		f.setSize(width, height + 40);
 		
 		JPanel pokemonSelection = new JPanel();
 		pokemonSelection.setLayout(null);
@@ -120,9 +118,12 @@ public class Game {
 			}
 		});
 		
-		f.add(pokemonSelection);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
+		f.setLayout(null);
+		pokemonSelection.setPreferredSize(new Dimension(screenWidth, screenHeight));
+		f.setContentPane(pokemonSelection);
+		f.pack();
 	}
 
 	private Image getScaledImage(Image srcImg, int targetHeight) {
