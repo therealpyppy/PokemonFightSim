@@ -27,7 +27,9 @@ public class Game {
 		pokemonSelection.setVisible(true);
 		
 		JLabel pSLabel = new JLabel("Please select your pokemon and your \"opponents\" pokemon:");
-		pSLabel.setBounds(screenWidth / 2 - 200, 10, 400, 20);
+		pSLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		pSLabel.setPreferredSize(new Dimension(400, 20));
+		pSLabel.setBounds((screenWidth - pSLabel.getPreferredSize().width) / 2, 10, pSLabel.getPreferredSize().width, pSLabel.getPreferredSize().height);
 		pokemonSelection.add(pSLabel);
 		
 		JTextField searchBar = new JTextField();
