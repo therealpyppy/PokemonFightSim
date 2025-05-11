@@ -30,14 +30,14 @@ public class Game {
 		searchBar1.setBounds(15, 40, screenWidth / 2 - 30 - 16, 25);
 		pokemonSelection.add(searchBar1);
 		
-		PokemonList PokemonList1 = new PokemonList(screenWidth, screenHeight, new Rectangle(15, 70, screenWidth / 2 - 30 - 16, screenHeight - 90));
-		JScrollPane scroll1 = PokemonList1.getScroll();
-		pokemonSelection.add(scroll1);
-
 		JTextField searchBar2 = new JTextField();
 		searchBar2.setPreferredSize(new Dimension(screenWidth - (screenWidth / 2 + 15) - 15 - 16, 25));
 		searchBar2.setBounds(screenWidth / 2 + 15 + 16, 40, screenWidth - (screenWidth / 2 + 15) - 15 - 16, 25);
 		pokemonSelection.add(searchBar2);
+
+		PokemonList PokemonList1 = new PokemonList(screenWidth, screenHeight, new Rectangle(15, 70, screenWidth / 2 - 30 - 16, screenHeight - 90));
+		JScrollPane scroll1 = PokemonList1.getScroll();
+		pokemonSelection.add(scroll1);
 
 		PokemonList PokemonList2 = new PokemonList(screenWidth, screenHeight, new Rectangle(screenWidth / 2 + 15 + 16, 70, screenWidth - (screenWidth / 2 + 15) - 15 - 16, screenHeight - 90));
 		JScrollPane scroll2 = PokemonList2.getScroll();
