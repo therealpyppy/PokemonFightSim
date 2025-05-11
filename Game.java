@@ -25,31 +25,49 @@ public class Game {
 		pSLabel.setBounds((screenWidth - pSLabel.getPreferredSize().width) / 2, 10, pSLabel.getPreferredSize().width, pSLabel.getPreferredSize().height);
 		pokemonSelection.add(pSLabel);
 		
-		JTextField searchBar = new JTextField();
-		searchBar.setPreferredSize(new Dimension(screenWidth - 280, 25));
-		searchBar.setBounds((screenWidth - searchBar.getPreferredSize().width) / 2, 40, searchBar.getPreferredSize().width, searchBar.getPreferredSize().height);
-		pokemonSelection.add(searchBar);
+		JTextField searchBar1 = new JTextField();
+		searchBar1.setPreferredSize(new Dimension(screenWidth / 2 - 30 - 16, 25));
+		searchBar1.setBounds(15, 40, screenWidth / 2 - 30 - 16, 25);
+		pokemonSelection.add(searchBar1);
 		
 		PokemonList PokemonList1 = new PokemonList(screenWidth, screenHeight, new Rectangle(15, 70, screenWidth / 2 - 30 - 16, screenHeight - 90));
 		JScrollPane scroll1 = PokemonList1.getScroll();
+		pokemonSelection.add(scroll1);
+
+		JTextField searchBar2 = new JTextField();
+		searchBar2.setPreferredSize(new Dimension(screenWidth - (screenWidth / 2 + 15) - 15 - 16, 25));
+		searchBar2.setBounds(screenWidth / 2 + 15 + 16, 40, screenWidth - (screenWidth / 2 + 15) - 15 - 16, 25);
+		pokemonSelection.add(searchBar2);
 
 		PokemonList PokemonList2 = new PokemonList(screenWidth, screenHeight, new Rectangle(screenWidth / 2 + 15 + 16, 70, screenWidth - (screenWidth / 2 + 15) - 15 - 16, screenHeight - 90));
 		JScrollPane scroll2 = PokemonList2.getScroll();
-
-		pokemonSelection.add(scroll1);
 		pokemonSelection.add(scroll2);
 		
-		searchBar.getDocument().addDocumentListener(new DocumentListener() {
+		searchBar1.getDocument().addDocumentListener(new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
-				PokemonList1.search(searchBar.getText());
+				PokemonList1.search(searchBar1.getText());
 			}
 			
 			public void removeUpdate(DocumentEvent e) {
-				PokemonList1.search(searchBar.getText());
+				PokemonList1.search(searchBar1.getText());
 			}
 			
 			public void changedUpdate(DocumentEvent e) {
-				PokemonList1.search(searchBar.getText());
+				PokemonList1.search(searchBar1.getText());
+			}
+		});
+
+		searchBar2.getDocument().addDocumentListener(new DocumentListener() {
+			public void insertUpdate(DocumentEvent e) {
+				PokemonList2.search(searchBar2.getText());
+			}
+			
+			public void removeUpdate(DocumentEvent e) {
+				PokemonList2.search(searchBar2.getText());
+			}
+			
+			public void changedUpdate(DocumentEvent e) {
+				PokemonList2.search(searchBar2.getText());
 			}
 		});
 		
