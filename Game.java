@@ -75,6 +75,8 @@ public class Game {
 		table1.getColumnModel().getColumn(0).setPreferredWidth(100);
 		table1.getColumnModel().getColumn(1).setPreferredWidth(screenWidth - 350);
 		table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table1.getTableHeader().setResizingAllowed(false);
+		table1.getTableHeader().setReorderingAllowed(false);
 
 		DefaultTableModel model2 = new DefaultTableModel(columnNames, 0) {
 			public Class<?> getColumnClass(int column) {
@@ -90,6 +92,8 @@ public class Game {
 		table2.getColumnModel().getColumn(0).setPreferredWidth(100);
 		table2.getColumnModel().getColumn(1).setPreferredWidth(screenWidth - 350);
 		table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table2.getTableHeader().setResizingAllowed(false);
+		table2.getTableHeader().setReorderingAllowed(false);
 
 		for (Object[] row : originalPokemonData) {
 			model1.addRow(row);
