@@ -39,10 +39,30 @@ public class Game {
 		JScrollPane scroll1 = PokemonList1.getScroll();
 		pokemonSelection.add(scroll1);
 
+		PokemonList1.getTable().getSelectionModel().addListSelectionListener(e -> {
+			if (!e.getValueIsAdjusting()) {
+				int indexSelected = PokemonList1.getTable().getSelectedRow();
+				//String selectedRow = String.format("%03d", indexSelected);
+				String selectedId = String.format("%03d", indexSelected+1);
+
+				System.out.println("left #:" + selectedId);
+			}
+		});
+
 		PokemonList PokemonList2 = new PokemonList(screenWidth, screenHeight, new Rectangle(screenWidth / 2 + 15 + 16, 70, screenWidth - (screenWidth / 2 + 15) - 15 - 16, screenHeight - 90));
 		JScrollPane scroll2 = PokemonList2.getScroll();
 		pokemonSelection.add(scroll2);
 		
+		PokemonList2.getTable().getSelectionModel().addListSelectionListener(e -> {
+			if (!e.getValueIsAdjusting()) {
+				int indexSelected = PokemonList2.getTable().getSelectedRow();
+				//String selectedRow = String.format("%03d", indexSelected);
+				String selectedId = String.format("%03d", indexSelected+1);
+
+				System.out.println("right #:" + selectedId);
+			}
+		});
+
 		searchBar1.getDocument().addDocumentListener(new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
 				PokemonList1.search(searchBar1.getText());
