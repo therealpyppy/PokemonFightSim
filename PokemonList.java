@@ -104,6 +104,10 @@ public class PokemonList {
 		}
 	}
 
+	public JTable getTable() {
+		return this.table;
+	}
+
 	private Image getScaledImage(Image srcImg, int targetHeight) {
 		int width = srcImg.getWidth(null);
 		int height = srcImg.getHeight(null);
