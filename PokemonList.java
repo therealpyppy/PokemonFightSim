@@ -71,10 +71,6 @@ public class PokemonList {
 
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
-		for (Object[] row : originalPokemonData) {
-			this.model.addRow(row);
-		}
 
 		return scroll;
 	}
