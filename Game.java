@@ -100,6 +100,6 @@ public class Game {
 	}
 	
 	public static void main(String[] args) {
-		new Game(700, 400);
+		new Game(1024, 600);
 	}
 }
