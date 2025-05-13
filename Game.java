@@ -35,7 +35,7 @@ public class Game {
 		searchBar2.setBounds(screenWidth / 2 + 15 + 16, 40, screenWidth - (screenWidth / 2 + 15) - 15 - 16, 25);
 		pokemonSelection.add(searchBar2);
 
-		PokemonList PokemonList1 = new PokemonList(screenWidth, screenHeight, new Rectangle(15, 70, screenWidth / 2 - 30 - 16, screenHeight - 90));
+		PokemonList PokemonList1 = new PokemonList(screenWidth, screenHeight, new Rectangle(15, 70, screenWidth / 2 - 30 - 16, screenHeight - 190));
 		JScrollPane scroll1 = PokemonList1.getScroll();
 		pokemonSelection.add(scroll1);
 
@@ -49,7 +49,7 @@ public class Game {
 			}
 		});
 
-		PokemonList PokemonList2 = new PokemonList(screenWidth, screenHeight, new Rectangle(screenWidth / 2 + 15 + 16, 70, screenWidth - (screenWidth / 2 + 15) - 15 - 16, screenHeight - 90));
+		PokemonList PokemonList2 = new PokemonList(screenWidth, screenHeight, new Rectangle(screenWidth / 2 + 15 + 16, 70, screenWidth - (screenWidth / 2 + 15) - 15 - 16, screenHeight - 190));
 		JScrollPane scroll2 = PokemonList2.getScroll();
 		pokemonSelection.add(scroll2);
 		
