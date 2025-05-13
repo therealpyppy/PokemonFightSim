@@ -104,6 +104,10 @@ public class PokemonList {
 		return this.table;
 	}
 
+	public List<Object[]> originalPokemonData() {
+		return this.originalPokemonData;
+	}
+
 	private Image getScaledImage(Image srcImg, int targetHeight) {
 		int width = srcImg.getWidth(null);
 		int height = srcImg.getHeight(null);
