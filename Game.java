@@ -39,6 +39,15 @@ public class Game {
 		JScrollPane scroll1 = PokemonList1.getScroll();
 		pokemonSelection.add(scroll1);
 
+		JLabel List1Label = new JLabel("No Pokemon selected");
+		Dimension labelSize = List1Label.getPreferredSize();
+
+		double labelXPos = 15 + ((screenWidth / 2.0 - 30 - 16) - labelSize.getWidth()) / 2;
+		int labelYPos = 85+(screenHeight - 190);
+
+		List1Label.setBounds((int) labelXPos, (int) labelYPos, (int) labelSize.getWidth(), (int) labelSize.getHeight());
+		pokemonSelection.add(List1Label);
+
 		PokemonList1.getTable().getSelectionModel().addListSelectionListener(e -> {
 			if (!e.getValueIsAdjusting()) {
 				int indexSelected = PokemonList1.getTable().getSelectedRow();
@@ -53,6 +62,15 @@ public class Game {
 		JScrollPane scroll2 = PokemonList2.getScroll();
 		pokemonSelection.add(scroll2);
 		
+		JLabel List2Label = new JLabel("No Pokemon selected");
+		Dimension labelSize2 = List2Label.getPreferredSize();
+
+		int labelYPos2 = 70 + (screenHeight - 190) + 25;
+		double labelXPos2 = (screenWidth / 2.0 + 15 + 16) + ((screenWidth - (screenWidth / 2.0 + 15) - 15 - 16) - labelSize2.getWidth()) / 2;
+
+		List2Label.setBounds((int) labelXPos2, labelYPos2, (int) labelSize2.getWidth(), (int) labelSize2.getHeight());
+		pokemonSelection.add(List2Label);
+
 		PokemonList2.getTable().getSelectionModel().addListSelectionListener(e -> {
 			if (!e.getValueIsAdjusting()) {
 				int indexSelected = PokemonList2.getTable().getSelectedRow();
