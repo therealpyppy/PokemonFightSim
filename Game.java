@@ -50,6 +50,19 @@ public class Game {
 				String selectedId = String.format("%03d", indexSelected+1);
 
 				System.out.println("left #:" + selectedId);
+
+				Object[] row = PokemonList1.originalPokemonData().get(indexSelected);
+				String fullName = (String) row[1];
+				String name = fullName.split("\\|\\|")[0].trim();
+
+				List1Label.setText("Selected Pokemon: "+ name);
+
+				Dimension ls = List1Label.getPreferredSize();
+
+				double lxp = 15 + ((screenWidth / 2.0 - 30 - 16) - ls.getWidth()) / 2;
+				double lyp = 85+(screenHeight - 190);
+
+				List1Label.setBounds((int) lxp, (int) lyp, (int) ls.getWidth(), (int) ls.getHeight());
 			}
 		});
 		
