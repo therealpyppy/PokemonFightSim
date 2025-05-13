@@ -46,13 +46,9 @@ public class Game {
 		PokemonList1.getTable().getSelectionModel().addListSelectionListener(e -> {
 			if (!e.getValueIsAdjusting()) {
 				int indexSelected = PokemonList1.getTable().getSelectedRow();
-				//String selectedRow = String.format("%03d", indexSelected);
-				String selectedId = String.format("%03d", indexSelected+1);
+				if (indexSelected < 0) return;
 
-				System.out.println("left #:" + selectedId);
-
-				Object[] row = PokemonList1.originalPokemonData().get(indexSelected);
-				String fullName = (String) row[1];
+				String fullName = (String) PokemonList1.getTable().getValueAt(indexSelected, 1);
 				String name = fullName.split("\\|\\|")[0].trim();
 
 				List1Label.setText("Selected Pokemon: "+ name);
