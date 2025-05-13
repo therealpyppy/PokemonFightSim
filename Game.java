@@ -19,7 +19,7 @@ public class Game {
 		pokemonSelection.setBackground(Color.WHITE);
 		pokemonSelection.setVisible(true);
 		
-		JLabel pSLabel = new JLabel("Please select your pokemon and your \"opponents\" pokemon:");
+		JLabel pSLabel = new JLabel("Please select you and your \"opponents\" pokemon:");
 		pSLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		pSLabel.setPreferredSize(new Dimension(400, 20));
 		pSLabel.setBounds((screenWidth - pSLabel.getPreferredSize().width) / 2, 10, pSLabel.getPreferredSize().width, pSLabel.getPreferredSize().height);
