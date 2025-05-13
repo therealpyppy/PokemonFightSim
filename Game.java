@@ -83,10 +83,19 @@ public class Game {
 		PokemonList2.getTable().getSelectionModel().addListSelectionListener(e -> {
 			if (!e.getValueIsAdjusting()) {
 				int indexSelected = PokemonList2.getTable().getSelectedRow();
-				//String selectedRow = String.format("%03d", indexSelected);
-				String selectedId = String.format("%03d", indexSelected+1);
+				if (indexSelected < 0) return;
 
-				System.out.println("right #:" + selectedId);
+				String fullName = (String) PokemonList2.getTable().getValueAt(indexSelected, 1);
+				String name = fullName.split("\\|\\|")[0].trim();
+
+				List2Label.setText("Selected Pokemon: "+ name);
+
+				Dimension ls = List2Label.getPreferredSize();
+
+				int lyp = 70 + (screenHeight - 190) + 25;
+				double lxp = (screenWidth / 2.0 + 15 + 16) + ((screenWidth - (screenWidth / 2.0 + 15) - 15 - 16) - ls.getWidth()) / 2;
+
+				List2Label.setBounds((int) lxp, lyp, (int) ls.getWidth(), (int) ls.getHeight());
 			}
 		});
 
