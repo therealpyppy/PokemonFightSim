@@ -42,6 +42,15 @@ public class Game {
 
 		List1Label.setBounds((int) labelXPos, (int) labelYPos, (int) labelSize.getWidth(), (int) labelSize.getHeight());
 		pokemonSelection.add(List1Label);
+      
+		JButton viewStatsP1 = new JButton("View Stats");
+		Dimension statsBtnSize = viewStatsP1.getPreferredSize();
+
+		double sBX = 15 + ((screenWidth / 2.0 - 30 - 16) - statsBtnSize.getWidth()) / 2;
+		int sBY = 120+(screenHeight - 190);
+
+		viewStatsP1.setBounds((int) sBX, (int) sBY, (int) statsBtnSize.getWidth(), (int) statsBtnSize.getHeight());
+		pokemonSelection.add(viewStatsP1);
 
 		PokemonList1.getTable().getSelectionModel().addListSelectionListener(e -> {
 			if (!e.getValueIsAdjusting()) {
