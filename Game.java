@@ -6,25 +6,27 @@ import javax.swing.event.DocumentListener;
 public class Game {
 	private int screenWidth;
 	private int screenHeight;
-	
+
 	public Game(int width, int height) {
 		this.screenWidth = width;
 		this.screenHeight = height;
-		
+
 		JFrame f = new JFrame("Pokemon Fight Sim");
-		
+		JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane.setPreferredSize(new Dimension(screenWidth, screenHeight));
+		layeredPane.setLayout(null);
+
 		JPanel pokemonSelection = new JPanel();
 		pokemonSelection.setLayout(null);
 		pokemonSelection.setSize(this.screenWidth, this.screenHeight);
 		pokemonSelection.setBackground(Color.WHITE);
-		pokemonSelection.setVisible(true);
-		
+
 		JLabel pSLabel = new JLabel("Please select you and your \"opponents\" pokemon:");
 		pSLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		pSLabel.setPreferredSize(new Dimension(400, 20));
 		pSLabel.setBounds((screenWidth - pSLabel.getPreferredSize().width) / 2, 10, pSLabel.getPreferredSize().width, pSLabel.getPreferredSize().height);
 		pokemonSelection.add(pSLabel);
-		
+
 		JTextField searchBar1 = new JTextField();
 		searchBar1.setPreferredSize(new Dimension(screenWidth / 2 - 30 - 16, 25));
 		searchBar1.setBounds(15, 40, screenWidth / 2 - 30 - 16, 25);
@@ -36,41 +38,47 @@ public class Game {
 
 		JLabel List1Label = new JLabel("No Pokemon selected");
 		Dimension labelSize = List1Label.getPreferredSize();
-
 		double labelXPos = 15 + ((screenWidth / 2.0 - 30 - 16) - labelSize.getWidth()) / 2;
 		int labelYPos = 85+(screenHeight - 190);
-
 		List1Label.setBounds((int) labelXPos, (int) labelYPos, (int) labelSize.getWidth(), (int) labelSize.getHeight());
 		pokemonSelection.add(List1Label);
-      
+
 		JButton viewStatsP1 = new JButton("View Stats");
 		Dimension statsBtnSize = viewStatsP1.getPreferredSize();
-
 		double sBX = 15 + ((screenWidth / 2.0 - 30 - 16) - statsBtnSize.getWidth()) / 2;
 		int sBY = 120+(screenHeight - 190);
-
 		viewStatsP1.setBounds((int) sBX, (int) sBY, (int) statsBtnSize.getWidth(), (int) statsBtnSize.getHeight());
 		pokemonSelection.add(viewStatsP1);
+
+		JPanel statsPanel = new JPanel();
+		statsPanel.setLayout(null);
+		statsPanel.setBounds(30, 15, screenWidth-60, screenHeight-30);
+		statsPanel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+		statsPanel.setVisible(false);
+
+		JButton exitStats = new JButton("X");
+		Dimension eSS = exitStats.getPreferredSize();
+		exitStats.setBounds((int) (statsPanel.getWidth()-eSS.getWidth()*1.5), 25, (int) eSS.getWidth(), (int) eSS.getHeight());
+		exitStats.setBackground(Color.WHITE);
+		statsPanel.add(exitStats);
+
+		viewStatsP1.addActionListener(e -> statsPanel.setVisible(true));
+		exitStats.addActionListener(e -> statsPanel.setVisible(false));
 
 		PokemonList1.getTable().getSelectionModel().addListSelectionListener(e -> {
 			if (!e.getValueIsAdjusting()) {
 				int indexSelected = PokemonList1.getTable().getSelectedRow();
 				if (indexSelected < 0) return;
-
 				String fullName = (String) PokemonList1.getTable().getValueAt(indexSelected, 1);
 				String name = fullName.split("\\|\\|")[0].trim();
-
 				List1Label.setText("Selected Pokemon: "+ name);
-
 				Dimension ls = List1Label.getPreferredSize();
-
 				double lxp = 15 + ((screenWidth / 2.0 - 30 - 16) - ls.getWidth()) / 2;
 				double lyp = 85+(screenHeight - 190);
-
 				List1Label.setBounds((int) lxp, (int) lyp, (int) ls.getWidth(), (int) ls.getHeight());
 			}
 		});
-		
+
 		JTextField searchBar2 = new JTextField();
 		searchBar2.setPreferredSize(new Dimension(screenWidth - (screenWidth / 2 + 15) - 15 - 16, 25));
 		searchBar2.setBounds(screenWidth / 2 + 15 + 16, 40, screenWidth - (screenWidth / 2 + 15) - 15 - 16, 25);
@@ -79,13 +87,11 @@ public class Game {
 		PokemonList PokemonList2 = new PokemonList(screenWidth, screenHeight, new Rectangle(screenWidth / 2 + 15 + 16, 70, screenWidth - (screenWidth / 2 + 15) - 15 - 16, screenHeight - 190));
 		JScrollPane scroll2 = PokemonList2.getScroll();
 		pokemonSelection.add(scroll2);
-		
+
 		JLabel List2Label = new JLabel("No Pokemon selected");
 		Dimension labelSize2 = List2Label.getPreferredSize();
-
 		int labelYPos2 = 70 + (screenHeight - 190) + 25;
 		double labelXPos2 = (screenWidth / 2.0 + 15 + 16) + ((screenWidth - (screenWidth / 2.0 + 15) - 15 - 16) - labelSize2.getWidth()) / 2;
-
 		List2Label.setBounds((int) labelXPos2, labelYPos2, (int) labelSize2.getWidth(), (int) labelSize2.getHeight());
 		pokemonSelection.add(List2Label);
 
@@ -93,57 +99,38 @@ public class Game {
 			if (!e.getValueIsAdjusting()) {
 				int indexSelected = PokemonList2.getTable().getSelectedRow();
 				if (indexSelected < 0) return;
-
 				String fullName = (String) PokemonList2.getTable().getValueAt(indexSelected, 1);
 				String name = fullName.split("\\|\\|")[0].trim();
-
 				List2Label.setText("Selected Pokemon: "+ name);
-
 				Dimension ls = List2Label.getPreferredSize();
-
 				int lyp = 70 + (screenHeight - 190) + 25;
 				double lxp = (screenWidth / 2.0 + 15 + 16) + ((screenWidth - (screenWidth / 2.0 + 15) - 15 - 16) - ls.getWidth()) / 2;
-
 				List2Label.setBounds((int) lxp, lyp, (int) ls.getWidth(), (int) ls.getHeight());
 			}
 		});
 
 		searchBar1.getDocument().addDocumentListener(new DocumentListener() {
-			public void insertUpdate(DocumentEvent e) {
-				PokemonList1.search(searchBar1.getText());
-			}
-			
-			public void removeUpdate(DocumentEvent e) {
-				PokemonList1.search(searchBar1.getText());
-			}
-			
-			public void changedUpdate(DocumentEvent e) {
-				PokemonList1.search(searchBar1.getText());
-			}
+			public void insertUpdate(DocumentEvent e) { PokemonList1.search(searchBar1.getText()); }
+			public void removeUpdate(DocumentEvent e) { PokemonList1.search(searchBar1.getText()); }
+			public void changedUpdate(DocumentEvent e) { PokemonList1.search(searchBar1.getText()); }
 		});
 
 		searchBar2.getDocument().addDocumentListener(new DocumentListener() {
-			public void insertUpdate(DocumentEvent e) {
-				PokemonList2.search(searchBar2.getText());
-			}
-			
-			public void removeUpdate(DocumentEvent e) {
-				PokemonList2.search(searchBar2.getText());
-			}
-			
-			public void changedUpdate(DocumentEvent e) {
-				PokemonList2.search(searchBar2.getText());
-			}
+			public void insertUpdate(DocumentEvent e) { PokemonList2.search(searchBar2.getText()); }
+			public void removeUpdate(DocumentEvent e) { PokemonList2.search(searchBar2.getText()); }
+			public void changedUpdate(DocumentEvent e) { PokemonList2.search(searchBar2.getText()); }
 		});
-		
+
+		pokemonSelection.setBounds(0, 0, screenWidth, screenHeight);
+		layeredPane.add(pokemonSelection, JLayeredPane.DEFAULT_LAYER);
+		layeredPane.add(statsPanel, JLayeredPane.PALETTE_LAYER);
+
+		f.setContentPane(layeredPane);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setVisible(true);
-		f.setLayout(null);
-		pokemonSelection.setPreferredSize(new Dimension(screenWidth, screenHeight));
-		f.setContentPane(pokemonSelection);
 		f.pack();
+		f.setVisible(true);
 	}
-	
+
 	public static void main(String[] args) {
 		new Game(1024, 600);
 	}
